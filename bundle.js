@@ -396,11 +396,11 @@ module.exports = iota
 },{}],4:[function(require,module,exports){
 var getPixels = require('get-pixels');
 
-var pixSize = 4;
+var pixSize = 8;
 
 $(document).ready(function () {
 
-  getPixels("test.png", function (err, pixels) {
+  getPixels("tux.png", function (err, pixels) {
     if (err) {
       console.log("Bad image path");
       return;
@@ -410,22 +410,67 @@ $(document).ready(function () {
     var length = data.byteLength;
     var width = pixSize;
     var temp = {};
-    for (var i = 0; i < length; i += 4) {
+    var arr = [];
+    var i = 0;
+
+    temp.top = ~~ (i / (pixels._shape1 * 4)) * pixSize,
+    temp.left = ((i / 4) % (pixels._shape1)) * pixSize;
+    temp.color = 'rgba(' + data[i] + ',' + data[i + 1] + ',' + data[i + 2] + ',' + data[i + 3] / 255 + ')';
+    width = pixSize;
+    for (var i = 1; i < length; i += 4) {
       //if same
       if (data[i] === data[i - 4] && data[i + 1] === data[i - 3] && data[i + 2] === data[i - 2] && data[i + 3] === data[i - 1]) {
         width += pixSize;
         continue;
       } else {
-        $(document.body).append("<div style='width:" + width + "px;height:" + pixSize + "px;top:" + temp.top + "px;left:" + temp.left + "px;background-color:" + temp.color + ";'></div>");
+        arr.push({
+          width: width,
+          top: temp.top,
+          left: temp.left,
+          color: temp.color
+        });
+        // $(document.body).append("<div style='width:" + width + "px;height:" + pixSize + "px;top:" + temp.top + "px;left:" + temp.left + "px;background-color:" + temp.color + ";'></div>");
+
       }
       //not same
-      temp.top = Math.floor(i / (pixels._shape1 * 4)) * pixSize,
+      temp.top = ~~ (i / (pixels._shape1 * 4)) * pixSize,
       temp.left = ((i / 4) % (pixels._shape1)) * pixSize;
       temp.color = 'rgba(' + data[i] + ',' + data[i + 1] + ',' + data[i + 2] + ',' + data[i + 3] / 255 + ')';
       width = pixSize;
 
       if (i % 400 === 0) console.log(i / length * 100 + '%');
     }
+
+    var body = d3.select('body').append('svg');
+    body.attr('height', 1000);
+    body.attr('width', 1000);
+    body.selectAll('rect')
+      .data(arr)
+      .enter()
+      .append('rect')
+      .attr('width', '8px')
+      .attr('y', function (d, i) {
+        return~~ (Math.random() * 1000);
+      })
+      .attr('x', function (d, i) {
+        return~~ (Math.random() * 1000);
+      })
+      .attr('height', '8px')
+      .attr('fill', function (d, i) {
+        return d.color;
+      })
+      .transition()
+      .duration(7000)
+      .attr('y', function (d, i) {
+        return d.top;
+      })
+      .attr('x', function (d, i) {
+        return d.left;
+      })
+      .attr('width', function (d, i) {
+        return d.width;
+      });
+
     // fs.writeFile("index.html", '<html><head><style>div{margin: 0; padding: 0;position:absolute;padding:0;margin:0;height:' + pixSize + 'px;width:' + pixSize + 'px;}</style></head><body>' + str + '</body></html>');
   });
 });
