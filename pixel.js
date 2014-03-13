@@ -4,7 +4,7 @@ var pixSize = 4;
 
 $(document).ready(function () {
 
-  getPixels("test.png", function (err, pixels) {
+  getPixels("ray.png", function (err, pixels) {
     if (err) {
       console.log("Bad image path");
       return;

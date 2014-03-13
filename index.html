@@ -1,6 +1,18 @@
 <html>
 <head>
   <style>
+  @-webkit-keyframes glower {
+    0% {
+      text-shadow: 0 0 0px #3cf;
+    }
+    50% {
+      text-shadow: 0 0 10px #3cf;
+    }
+    100% {
+      text-shadow: 0 0 30px #3cf;
+    }
+  }
+
   div{
     margin: 0; 
     padding: 0;
@@ -9,7 +21,16 @@
     margin:0;
     height: 4px;
     width: 4px;
-    -webkit-transition: all 10s ease-out;
+    -webkit-transition: all 10s;
+  }
+  h1{
+    font-size: 180px;
+    text-shadow: 0 0 30px #3cf;
+    -webkit-animation: glower 2s infinite;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    text-align: center;
   }
   </style>
   <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
@@ -17,6 +38,6 @@
   <script type="text/javascript" src="bundle.js"></script>
 </head>
 <body>
-
+<h1>RAYYYYYYYY</h1>
 </body>
 </html>
