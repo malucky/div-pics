@@ -396,11 +396,11 @@ module.exports = iota
 },{}],4:[function(require,module,exports){
 var getPixels = require('get-pixels');
 
-var pixSize = 8;
+var pixSize = 4;
 
 $(document).ready(function () {
 
-  getPixels("tux.png", function (err, pixels) {
+  getPixels("c.png", function (err, pixels) {
     if (err) {
       console.log("Bad image path");
       return;
@@ -417,7 +417,7 @@ $(document).ready(function () {
     temp.left = ((i / 4) % (pixels._shape1)) * pixSize;
     temp.color = 'rgba(' + data[i] + ',' + data[i + 1] + ',' + data[i + 2] + ',' + data[i + 3] / 255 + ')';
     width = pixSize;
-    for (var i = 1; i < length; i += 4) {
+    for (i = 4; i < length; i += 4) {
       //if same
       if (data[i] === data[i - 4] && data[i + 1] === data[i - 3] && data[i + 2] === data[i - 2] && data[i + 3] === data[i - 1]) {
         width += pixSize;
@@ -448,19 +448,19 @@ $(document).ready(function () {
       .data(arr)
       .enter()
       .append('rect')
-      .attr('width', '8px')
+      .attr('width', '4px')
       .attr('y', function (d, i) {
         return~~ (Math.random() * 1000);
       })
       .attr('x', function (d, i) {
         return~~ (Math.random() * 1000);
       })
-      .attr('height', '8px')
+      .attr('height', '4px')
       .attr('fill', function (d, i) {
         return d.color;
       })
       .transition()
-      .duration(7000)
+      .duration(10000)
       .attr('y', function (d, i) {
         return d.top;
       })
