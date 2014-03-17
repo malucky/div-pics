@@ -420,6 +420,7 @@ $(document).ready(function () {
     temp.left = ((i / pixSize) % (pixels._shape1)) * pixSize;
     temp.color = 'rgba(' + data[i] + ',' + data[i + 1] + ',' + data[i + 2] + ',' + data[i + 3] / 255 + ')';
 
+    //arr of pixels
     for (i = 0; i < length; i += 4) {
       //if same
       if (data[i] === data[i - 4] && data[i + 1] === data[i - 3] && data[i + 2] === data[i - 2] && data[i + 3] === data[i - 1]) {
@@ -439,8 +440,6 @@ $(document).ready(function () {
           deltax: temp.left - startx
 
         });
-        // $(document.body).append("<div style='width:" + width + "px;height:" + pixSize + "px;top:" + temp.top + "px;left:" + temp.left + "px;background-color:" + temp.color + ";'></div>");
-
       }
       //not same
       temp.top = ~~ (i / (pixels._shape1 * 4)) * pixSize;
@@ -451,28 +450,7 @@ $(document).ready(function () {
       if (i % 400 === 0) console.log(i / length * 100 + '%');
     }
 
-    // var body = d3.select('body').append('div');
-    // // body.attr('height', 1000);
-    // // body.attr('width', 1000);
-    // body.selectAll('div')
-    //   .data(arr)
-    //   .enter()
-    //   .append('div')
-    //   .style('width', '4px')
-    //   .style('top', function (d, i) {
-    //     return d.starty;
-    //   })
-    //   .style('left', function (d, i) {
-    //     return d.startx;
-    //   })
-    //   .style('height', '4px')
-    //   .style('background-color', function (d, i) {
-    //     return d.color;
-    //   });
-
-
-
-    //
+    //drawing with canvas
     var canvas = document.getElementById('myCanvas');
     var ctx = canvas.getContext('2d');
     var numOfFrames = 50;
@@ -489,25 +467,9 @@ $(document).ready(function () {
         pixel.startx = pixel.startx + pixel.deltax / numOfFrames;
         pixel.starty = pixel.starty + pixel.deltay / numOfFrames;
       }
-      if (--counter >= 0) window.setTimeout(draw, 30);
+      if (--counter >= 0) window.setTimeout(draw, 0);
     };
     draw();
-
-
-
-    // body.selectAll('div')
-    //   .style('-webkit-transform', function (d, i) {
-    //     var offsetX = d.left - d.startx;
-    //     var offsetY = d.top - d.starty;
-    //     return 'translate(' + offsetX + 'px,' + offsetY + 'px)';
-    //   })
-    // // .style('left', function (d, i) {
-    // //   return d.left;
-    // // })
-    // .style('width', function (d, i) {
-    //   return d.width;
-    // });
-    // fs.writeFile("index.html", '<html><head><style>div{margin: 0; padding: 0;position:absolute;padding:0;margin:0;height:' + pixSize + 'px;width:' + pixSize + 'px;}</style></head><body>' + str + '</body></html>');
   });
 });
 },{"get-pixels":1}],5:[function(require,module,exports){

@@ -71,7 +71,7 @@ $(document).ready(function () {
         pixel.startx = pixel.startx + pixel.deltax / numOfFrames;
         pixel.starty = pixel.starty + pixel.deltay / numOfFrames;
       }
-      if (--counter >= 0) window.setTimeout(draw, 30);
+      if (--counter >= 0) window.setTimeout(draw, 0);
     };
     draw();
   });
