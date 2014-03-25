@@ -20,8 +20,8 @@ $(document).ready(function () {
     var arr = [];
     var i = 0;
 
-    temp.top = ~~ (i / (pixels._shape1 * pixSize)) * pixSize;
-    temp.left = ((i / pixSize) % (pixels._shape1)) * pixSize;
+    temp.top = ~~ (i / (pixels._shape1 * 4)) * pixSize;
+    temp.left = ((i / 4) % (pixels._shape1)) * pixSize;
     temp.color = 'rgba(' + data[i] + ',' + data[i + 1] + ',' + data[i + 2] + ',' + data[i + 3] / 255 + ')';
 
     //arr of pixels
